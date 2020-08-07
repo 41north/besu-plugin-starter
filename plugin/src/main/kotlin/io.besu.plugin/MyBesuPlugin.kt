@@ -14,9 +14,25 @@
  * limitations under the License.
  */
 
-// NOTE Left as Gradle (Groovy) to avoid issues when converting to Kotlin and importing the source.
+package io.besu.plugin
 
-dependencyManagement {
-    dependencies {
-    }
+import org.hyperledger.besu.plugin.BesuContext
+import org.hyperledger.besu.plugin.BesuPlugin
+
+/**
+ * Go ahead and conquer the world with your plugin! :)
+ */
+class MyBesuPlugin : BesuPlugin {
+
+  override fun start() {
+    TODO("Not yet implemented")
+  }
+
+  override fun register(context: BesuContext?) {
+    TODO("Not yet implemented")
+  }
+
+  override fun stop() {
+    TODO("Not yet implemented")
+  }
 }
