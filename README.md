@@ -9,29 +9,32 @@ Do you want to create a [Besu plugin](https://besu.hyperledger.org/en/stable/Con
 What includes:
 
 - It's mainly based for working with Kotlin but easily adaptable to use vanilla Java.
-- It allows you to generate fat `jars` to distribute the plugin with ease. 
+- It allows you to generate fat `JARs` to distribute the plugin with ease.
+- It allows you to check if dependencies are up to date.
+- It allows you to auto-format the code.
+
+Bundled Gradle plugins:
+
+- [`ShadowJar`](https://github.com/johnrengelman/shadow) - For creating fat `JARs`.
+- [`Ktlint`](https://github.com/JLLeitschuh/ktlint-gradle) - For automatic formatting of Kotlin code.
+- [`Gradle Versions Plugin`](https://github.com/ben-manes/gradle-versions-plugin) - Determine which dependencies have updates
 
 ## 🙈 Usage
 
 Simply just fork this repository and start hacking!
 
-Describe what tasks are available:
+Below there's a table that summarizes some useful `gradle` tasks that you have at your disposal:
 
-```shell script
-./gradlew tasks
-```
+| Target            | Description                                                     |
+|-------------------|-----------------------------------------------------------------
+| assemble          | Full `JAR` file in `build/distributions` as `.jar`.
+| assembleDist      | Creates `.zip` and `.tar` archives of the distribution contents.
+| distZip           | Full `JAR` file distribution in `build/distributions` as `.zip`.
+| distTar           | Full `JAR` file distribution in `build/distributions` as `.tar`.
+| ktlintFormat      | Formats automatically the code.
+| dependencyUpdates | Check if all dependencies are up to date.
+| tasks             | Display all available tasks.
 
-Create a `zip` file:
-
-```shell script
-./gradlew distZip
-```
-
-Create a `tar` file:
-
-```shell script
-./gradlew distTar
-```
 
 ## 💻 Contribute
 
