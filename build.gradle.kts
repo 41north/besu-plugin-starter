@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
@@ -32,21 +33,6 @@ plugins {
 }
 
 group = "io.besu.plugin"
-version = "0.1.0"
-
-val distZip: Zip by project.tasks
-distZip.apply {
-  dependsOn(":plugin:build")
-  doFirst { delete { fileTree(Pair("build/distributions", "*.zip")) } }
-}
-
-val distTar: Tar by project.tasks
-distTar.apply {
-  dependsOn("plugin:build")
-  doFirst { delete { fileTree(Pair("build/distributions", "*.tar.gz")) } }
-  compression = Compression.GZIP
-  archiveExtension.set("tar.gz")
-}
 
 allprojects {
   apply(plugin = "org.jlleitschuh.gradle.ktlint")
@@ -60,15 +46,17 @@ allprojects {
   }
 
   tasks {
+    val javaVersion = "11"
+
     withType<KotlinCompile>().all {
-      sourceCompatibility = "11"
-      targetCompatibility = "11"
-      kotlinOptions.jvmTarget = "11"
+      sourceCompatibility = javaVersion
+      targetCompatibility = javaVersion
+      kotlinOptions.jvmTarget = javaVersion
     }
 
     withType<JavaCompile> {
-      sourceCompatibility = "11"
-      targetCompatibility = "11"
+      sourceCompatibility = javaVersion
+      targetCompatibility = javaVersion
     }
   }
 
@@ -86,12 +74,32 @@ allprojects {
   }
 }
 
+distributions {
+  main {
+    contents {
+      from("LICENSE") { into("") }
+      from("README.md") { into("") }
+      from("plugin/build/libs") { into("plugins") }
+    }
+  }
+}
+
 tasks {
-  jar {
-    enabled = false
+  jar { enabled = false }
+
+  val distZip: Zip by container
+  distZip.apply {
+    doFirst { delete { fileTree(Pair("build/distributions", "*.zip")) } }
   }
 
-  withType<com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask> {
+  val distTar: Tar by container
+  distTar.apply {
+    doFirst { delete { fileTree(Pair("build/distributions", "*.tar.gz")) } }
+    compression = Compression.GZIP
+    archiveExtension.set("tar.gz")
+  }
+
+  withType<DependencyUpdatesTask> {
     fun isNonStable(version: String): Boolean {
       val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.toUpperCase().contains(it) }
       val regex = "^[0-9,.v-]+(-r)?$".toRegex()
@@ -100,8 +108,6 @@ tasks {
     }
 
     // Reject all non stable versions
-    rejectVersionIf {
-      isNonStable(candidate.version)
-    }
+    rejectVersionIf { isNonStable(candidate.version) }
   }
 }

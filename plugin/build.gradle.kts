@@ -24,30 +24,44 @@ plugins {
 }
 
 val besuVersion = "1.5.1"
+val tuweniVersion = "1.0.0"
+val picocliVersion = "4.2.0"
+
+val pluginName = "besu-plugin"
+val pluginVersion = "0.1.0"
 
 dependencies {
 
   implementation(kotlin("stdlib"))
 
+  // Official Besu Plugin API (https://besu.hyperledger.org/en/stable/Concepts/Plugins/)
   implementation("org.hyperledger.besu:plugin-api:$besuVersion")
+
+  // Internal Besu packages ()
+  // Optional: Remove these if you don't plan to work with these classes
   implementation("org.hyperledger.besu.internal:besu:$besuVersion")
   implementation("org.hyperledger.besu.internal:api:$besuVersion")
   implementation("org.hyperledger.besu.internal:config:$besuVersion")
   implementation("org.hyperledger.besu.internal:metrics-core:$besuVersion")
   implementation("org.hyperledger.besu.internal:kvstore:$besuVersion")
 
-  implementation("org.apache.tuweni:tuweni-bytes:1.0.0")
-  implementation("org.apache.tuweni:tuweni-units:1.0.0")
+  // Tuweni (https://github.com/apache/incubator-tuweni/)
+  // Optional: Remove these if you don't plan to work with these classes
+  implementation("org.apache.tuweni:tuweni-bytes:$tuweniVersion")
+  implementation("org.apache.tuweni:tuweni-units:$tuweniVersion")
 
-  implementation("info.picocli:picocli:4.2.0")
+  // PicoCLI (https://picocli.info/)
+  // For working with CLI
+  implementation("info.picocli:picocli:$picocliVersion")
 }
 
-val build: DefaultTask by project.tasks
-build.dependsOn(tasks.shadowJar)
-
 tasks {
+  val build: DefaultTask by container
+  build.dependsOn(shadowJar)
+
   withType<ShadowJar> {
-    archiveBaseName.set(project.name)
+    archiveBaseName.set(pluginName)
+    archiveVersion.set(pluginVersion)
     archiveClassifier.set("")
   }
 }
