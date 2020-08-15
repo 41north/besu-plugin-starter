@@ -4,7 +4,7 @@
 
 ## 💡 Introduction
 
-Do you want to create a [Besu plugin](https://besu.hyperledger.org/en/stable/Concepts/Plugins/) super fast? This template will help get started!
+Do you want to create a [Besu plugin](https://besu.hyperledger.org/en/stable/Concepts/Plugins/) super fast? This template will help you get started!
 
 What is included:
 
