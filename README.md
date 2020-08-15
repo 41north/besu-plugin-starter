@@ -1,17 +1,18 @@
 <h1 align="center">⚡ Besu Plugin Starter ⚡</h1>
 
-<p align="center">Kick-start your new Besu plugin at the speed of light!</p>
+<p align="center">Kick-start your next Besu plugin!</p>
 
 ## 💡 Introduction
 
-Do you want to create a [Besu plugin](https://besu.hyperledger.org/en/stable/Concepts/Plugins/) super fast? This template will help you to do so!
+Do you want to create a [Besu plugin](https://besu.hyperledger.org/en/stable/Concepts/Plugins/) super fast? This template will help get started!
 
-What includes:
+What is included:
 
-- It's mainly based for working with Kotlin but easily adaptable to use vanilla Java.
-- It allows you to generate fat `JARs` to distribute the plugin with ease.
-- It allows you to check if dependencies are up to date.
-- It allows you to auto-format the code.
+- generate fat `JARs` to distribute the plugin with ease.
+- easily check if all the various Besu dependencies are up to date.
+- ensure a consistent coding style with auto-formatting.
+
+Whilst this project is mainly geared towards Kotlin it can still be used with plain old Java.
 
 Bundled Gradle plugins:
 
@@ -21,9 +22,9 @@ Bundled Gradle plugins:
 
 ## 🙈 Usage
 
-Simply just fork this repository and start hacking!
+Simply fork this repository and start hacking away!
 
-Below there's a table that summarizes some useful `gradle` tasks that you have at your disposal:
+Below is a summary of some useful `gradle` tasks that you will have at your disposal:
 
 | Target            | Description                                                     |
 |-------------------|-----------------------------------------------------------------
